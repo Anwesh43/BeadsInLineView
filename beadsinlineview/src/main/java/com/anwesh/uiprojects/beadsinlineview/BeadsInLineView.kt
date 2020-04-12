@@ -15,7 +15,6 @@ import android.app.Activity
 val nodes : Int = 5
 val beads : Int = 3
 val scGap : Float = 0.02f
-val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#3F51B5")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val delay : Long = 20
@@ -51,4 +50,20 @@ fun Canvas.drawBILNode(i : Int, scale : Float, paint : Paint) {
     translate(0f, gap * (i + 1))
     drawBeadsInLine(w, scale, paint)
     restore()
+}
+
+class BeadsInLineView(ctx : Context) : View(ctx) {
+
+    override fun onDraw(canvas : Canvas) {
+
+    }
+
+    override fun onTouchEvent(event : MotionEvent) : Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+        }
+        return true
+    }
 }
