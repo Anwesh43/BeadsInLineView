@@ -14,11 +14,12 @@ import android.app.Activity
 
 val nodes : Int = 5
 val beads : Int = 3
-val scGap : Float = 0.02f
+val scGap : Float = 0.02f / beads
 val foreColor : Int = Color.parseColor("#3F51B5")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val delay : Long = 20
 val offsetFactor : Float = 4f
+val strokeFactor : Int = 90
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -30,7 +31,7 @@ fun Canvas.drawBeadInLine(i : Int, w : Float, scale : Float, paint : Paint) {
     val gap : Float = offset / beads
     val sc : Float = scale.sinify().divideScale(i, beads)
     save()
-    translate(gap / 2 + (beads - 1 - i) * gap + (w - offsetFactor) * sc, 0f)
+    translate(gap / 2 + (beads - 1 - i) * gap + (w - offset) * sc, 0f)
     drawCircle(0f, 0f, gap / 2, paint)
     restore()
 }
@@ -46,8 +47,11 @@ fun Canvas.drawBILNode(i : Int, scale : Float, paint : Paint) {
     val h : Float = height.toFloat()
     val gap : Float = h / (nodes + 1)
     paint.color = foreColor
+    paint.strokeCap = Paint.Cap.ROUND
+    paint.strokeWidth = Math.min(w, h) / strokeFactor
     save()
     translate(0f, gap * (i + 1))
+    drawLine(0f, 0f, w, 0f, paint)
     drawBeadsInLine(w, scale, paint)
     restore()
 }
