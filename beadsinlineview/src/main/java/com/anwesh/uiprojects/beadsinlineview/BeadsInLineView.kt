@@ -205,4 +205,13 @@ class BeadsInLineView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BeadsInLineView {
+            var view : BeadsInLineView = BeadsInLineView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
