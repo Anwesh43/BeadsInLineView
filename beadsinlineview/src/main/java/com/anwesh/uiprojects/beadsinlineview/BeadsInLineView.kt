@@ -180,4 +180,27 @@ class BeadsInLineView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BeadsInLineView) {
+
+        private val animator : Animator = Animator(view)
+        private val bil : BeadsInLine = BeadsInLine(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            bil.draw(canvas, paint)
+            animator.animate {
+                bil.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bil.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
